@@ -12,11 +12,11 @@ int Instructions_view = 500;
 #include <OneWire.h>
 #include <DallasTemperature.h>
 const int SENSOR_PIN = 2; // Arduino pin connected to DS18B20 sensor's DQ pin
-OneWire oneWire(SENSOR_PIN);         // setup a oneWire instance
-DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature library
+OneWire oneWire(SENSOR_PIN);         // setup a oneWire instance for temp
+DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature library 
 float tempCelsius;    // temperature in Celsius
-
-#include <HX711_ADC.h>  
+ 
+#include <HX711_ADC.h>// load cell  
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h> // LiquidCrystal_I2C library
 HX711_ADC LoadCell(4, 5); // dt pin, sck pin
@@ -28,9 +28,7 @@ const int rled=11;
 const int yled=12;
 const int bled=13;
   int buzzer=9;
-
-  // gsm send message subroutine
-  
+ 
  
 void setup() {
   
@@ -44,7 +42,7 @@ void setup() {
 
   if (pulseSensor.begin())
   {
-    Serial.println("  pulseSensor Object Created !");  
+    Serial.println("  Healthnmonitoring system created ");  
   }
   //hx711
   pinMode (taree, INPUT_PULLUP);
@@ -66,6 +64,8 @@ void setup() {
 delay(2000);
 lcd.clear();
 }
+
+//loop
 void loop()
 { 
   //dallas temp
@@ -105,9 +105,7 @@ void loop()
    Serial.print("Temperature: ");
   Serial.print(tempCelsius);    // print the temperature in Celsius
   Serial.println("°C");
-         // separator between Celsius and Fahrenheit
-  
- 
+        
   lcd.setCursor(0,2);
   lcd.print("temperatre :");
   lcd.setCursor(12,2);
@@ -167,7 +165,7 @@ void loop()
 
 }
 
-
+// gsm send message function
 void sendx3(float t, float y)
 {
  
